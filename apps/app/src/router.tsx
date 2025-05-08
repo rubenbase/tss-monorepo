@@ -1,15 +1,20 @@
 import { QueryClient } from '@tanstack/react-query';
 import { createRouter as createTanStackRouter } from '@tanstack/react-router';
 import { routerWithQueryClient } from '@tanstack/react-router-with-query';
-import { createTRPCClient, httpBatchStreamLink } from '@trpc/client';
+import {
+  createTRPCClient,
+  httpBatchLink,
+  // httpBatchStreamLink,
+} from '@trpc/client';
 import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
 import superjson from 'superjson';
 import { DefaultCatchBoundary } from './components/DefaultCatchBoundary';
 import { NotFound } from './components/NotFound';
 import { routeTree } from './routeTree.gen';
-import type { HTTPHeaderName } from '@tanstack/react-start/server';
+// import type { HTTPHeaderName } from '@tanstack/react-start/server';
 import type { AppRouter } from '@acme/api';
 import { TRPCProvider } from './trpc/react';
+import { sharedEnvs } from '@acme/env/shared';
 
 // NOTE: Most of the integration code found here is experimental and will
 // definitely end up in a more streamlined API in the future. This is just
@@ -18,15 +23,15 @@ import { TRPCProvider } from './trpc/react';
 function getUrl() {
   const base = (() => {
     if (typeof window !== 'undefined') return '';
-    if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
+    console.log('>>> sharedEnvs', sharedEnvs);
+    if (sharedEnvs.VITE_PUBLIC_URL) return sharedEnvs.VITE_PUBLIC_URL;
     return `http://localhost:${process.env.PORT ?? 3000}`;
   })();
   return base + '/api/trpc';
 }
 
-export function createRouter(
-  ssrHeaders: Partial<Record<HTTPHeaderName, string | undefined>> = {}
-) {
+export function createRouter() {
+  // ssrHeaders: Partial<Record<HTTPHeaderName, string | undefined>> = {}
   const queryClient = new QueryClient({
     defaultOptions: {
       dehydrate: { serializeData: superjson.serialize },
@@ -36,23 +41,23 @@ export function createRouter(
 
   const trpcClient = createTRPCClient<AppRouter>({
     links: [
-      httpBatchStreamLink({
+      httpBatchLink({
         transformer: superjson,
         url: getUrl(),
-        headers() {
-          const h = new Headers();
+        // headers() {
+        //   const h = new Headers();
 
-          if (typeof window === 'undefined') {
-            h.set('x-trpc-source', 'gb-web-server');
-            for (const [key, value] of Object.entries(ssrHeaders)) {
-              if (value) h.set(key, value);
-            }
-          } else {
-            h.set('x-trpc-source', 'gb-web-client');
-          }
+        //   if (typeof window === 'undefined') {
+        //     h.set('x-trpc-source', 'gb-web-server');
+        //     for (const [key, value] of Object.entries(ssrHeaders)) {
+        //       if (value) h.set(key, value);
+        //     }
+        //   } else {
+        //     h.set('x-trpc-source', 'gb-web-client');
+        //   }
 
-          return h;
-        },
+        //   return h;
+        // },
       }),
     ],
   });

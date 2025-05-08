@@ -15,5 +15,5 @@
     "types": ["vite/client"]
   },
   "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "dist", "./postcss.config.mjs"]
+  "exclude": ["node_modules", "dist"]
 }

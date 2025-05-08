@@ -46,7 +46,13 @@
       "interactive": true
     }
   },
-  "globalEnv": [],
+  "globalEnv": [
+    "DATABASE_URL",
+    "BETTER_AUTH_SECRET",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "VITE_PUBLIC_URL"
+  ],
   "globalPassThroughEnv": [
     "NODE_ENV",
     "CI",

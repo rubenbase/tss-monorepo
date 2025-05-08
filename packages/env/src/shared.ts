@@ -1,5 +1,4 @@
 import { createEnv } from '@t3-oss/env-core';
-import { z } from 'zod';
 import { nodeEnv, zStringDefaultInDev } from './utils';
 
 export const sharedClientEnvs = {

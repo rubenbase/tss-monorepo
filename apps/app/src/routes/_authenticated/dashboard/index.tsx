@@ -9,14 +9,14 @@ export const Route = createFileRoute('/_authenticated/dashboard/')({
   component: DashboardIndexComponent,
   loader: async ({ context }) => {
     const data = await context.queryClient.ensureQueryData(
-      context.trpc.auth.getSecretMessage.queryOptions()
+      context.trpc.post.list.queryOptions()
     );
 
     if (!data) {
       throw redirect({ to: '/login' });
     }
 
-    return { title: data };
+    return { title: data[0].title };
   },
   head: ({ loaderData }) => ({
     meta: [{ title: loaderData.title }],
@@ -43,12 +43,14 @@ function DashboardIndexComponent() {
 
 function TrpcSession() {
   const trpc = useTRPC();
-  const secretMessage = useQuery(trpc.auth.getSecretMessage.queryOptions());
+  const posts = useQuery(trpc.post.list.queryOptions());
 
   return (
     <div className="rounded-lg border p-4 shadow-sm">
       <h2 className="mb-2 text-xl font-semibold">Secret Message</h2>
-      <div className="text-gray-700">{secretMessage.data}</div>
+      <div className="text-gray-700">
+        {posts.data?.map((post) => post.title).join(', ')}
+      </div>
     </div>
   );
 }

@@ -8,24 +8,32 @@ type Post = {
   body: string;
 };
 
+const posts: Post[] = [
+  {
+    id: '1',
+    title: 'Post 1',
+    body: 'Body 1',
+  },
+  {
+    id: '2',
+    title: 'Post 2',
+    body: 'Body 2',
+  },
+];
+
 export const postRouter = {
   list: publicProcedure.query(async () => {
-    const posts = await fetch(
-      'https://jsonplaceholder.typicode.com/posts'
-    ).then((r) => r.json() as Promise<Array<Post>>);
-    return posts.slice(0, 10);
+    return posts;
   }),
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
-      const post = await fetch(
-        `https://jsonplaceholder.typicode.com/posts/${input.id}`
-      ).then((r) => {
-        if (r.status === 404) {
-          throw new TRPCError({ code: 'NOT_FOUND' });
-        }
-        return r.json() as Promise<Post>;
-      });
+      console.log('>>> input', input);
+      const post = posts.find((p) => p.id === input.id);
+      console.log('>>> post', post);
+      if (!post) {
+        throw new TRPCError({ code: 'NOT_FOUND' });
+      }
 
       return post;
     }),

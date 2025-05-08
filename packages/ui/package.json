@@ -5,8 +5,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
-    "./*": "./src/*.tsx",
-    "./postcss.config.mjs": "./postcss.config.mjs"
+    "./*": "./src/*.tsx"
   },
   "license": "MIT",
   "scripts": {

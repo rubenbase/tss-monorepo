@@ -1,5 +1,10 @@
 import { z } from 'zod';
 
+const envs: Record<string, string> = {
+  ...process.env,
+  ...(import.meta.env ?? {}),
+};
+
 export const nodeEnv = z
   .string()
   .optional()
@@ -8,10 +13,10 @@ export const nodeEnv = z
 
 export function zStringDefaultInDev(defaultValue: string) {
   const isDev =
-    process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
-    process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
-    process.env.NODE_ENV === 'development' ||
-    process.env.NODE_ENV === 'test';
+    envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
+    envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
+    envs.NODE_ENV === 'development' ||
+    envs.NODE_ENV === 'test';
 
   if (!isDev) return z.string();
   return z.string().optional().default(defaultValue);
@@ -23,10 +28,10 @@ export const zStringRequiredInProduction = z
   .refine(
     (token) => {
       if (
-        process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
-        process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
-        process.env.NODE_ENV === 'development' ||
-        process.env.NODE_ENV === 'test'
+        envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
+        envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
+        envs.NODE_ENV === 'development' ||
+        envs.NODE_ENV === 'test'
       ) {
         return true;
       }
@@ -41,10 +46,10 @@ export const zNumberRequiredInProduction = z
   .refine(
     (token) => {
       if (
-        process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
-        process.env.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
-        process.env.NODE_ENV === 'development' ||
-        process.env.NODE_ENV === 'test'
+        envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'local' ||
+        envs.NEXT_PUBLIC_DEPLOYMENT_ENV === 'ci' ||
+        envs.NODE_ENV === 'development' ||
+        envs.NODE_ENV === 'test'
       ) {
         return true;
       }

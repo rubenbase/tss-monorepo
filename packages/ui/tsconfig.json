@@ -106,10 +106,5 @@
     }
   },
   "include": ["."],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "./postcss.config.mjs",
-    "../ui/postcss.config.mjs"
-  ]
+  "exclude": ["node_modules", "dist"]
 }

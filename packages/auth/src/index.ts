@@ -5,6 +5,7 @@ import { db } from '@acme/db/client';
 import { user, session, account, verification } from '@acme/db/schema';
 
 import { authEnvs } from '@acme/env/auth';
+// import { reactStartCookies } from 'better-auth/react-start';
 
 export const auth = betterAuth({
   secret: authEnvs.BETTER_AUTH_SECRET,
@@ -27,4 +28,5 @@ export const auth = betterAuth({
       clientSecret: authEnvs.GOOGLE_CLIENT_SECRET,
     },
   },
+  // plugins: [reactStartCookies()],
 });
