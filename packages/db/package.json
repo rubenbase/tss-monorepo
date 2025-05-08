@@ -1,0 +1,47 @@
+{
+  "name": "@acme/db",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./schema": "./src/schema.ts"
+  },
+  "license": "MIT",
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "format": "prettier --check . --ignore-path ../../.gitignore",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "_________database_________": "",
+    "db:generate": "dotenvx run -- pnpm with-env drizzle-kit generate",
+    "db:generate:custom": "dotenvx run -- npx drizzle-kit generate --custom",
+    "db:migrate": "dotenvx run -- pnpm with-env drizzle-kit migrate",
+    "db:studio": "dotenvx run -- pnpm with-env drizzle-kit studio",
+    "db:studio:drop": "dotenvx run -- pnpm with-env drizzle-kit drop",
+    "db:seed": "dotenvx run -- pnpm with-env tsx ./src/seed.ts",
+    "db:introspect": "dotenvx run -- pnpm with-env drizzle-kit introspect",
+    "db:test": "dotenvx run -- tsx ./src/test.ts"
+  },
+  "dependencies": {
+    "@dotenvx/dotenvx": "catalog:",
+    "@neondatabase/serverless": "^0.10.4",
+    "@paralleldrive/cuid2": "^2.2.2",
+    "@t3-oss/env-core": "^0.12.0",
+    "drizzle-orm": "^0.43.1",
+    "drizzle-zod": "^0.7.1",
+    "pg": "^8.15.6",
+    "uuid": "^11.1.0",
+    "ws": "^8.18.2",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:node",
+    "drizzle-kit": "^0.31.1",
+    "eslint": "catalog:",
+    "prettier": "catalog:",
+    "tsx": "^4.19.4",
+    "typescript": "catalog:"
+  }
+}

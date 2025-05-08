@@ -1,0 +1,34 @@
+packages:
+  - apps/*
+  - packages/*
+
+catalog:
+  eslint: ^9.19.0
+  prettier: ^3.4.2
+  tailwindcss: ^4.1.5
+  typescript: ^5.7.3
+  zod: ^3.24.1
+  superjson: ^2.2.1
+  '@dotenvx/dotenvx': ^1.43.0
+  'class-variance-authority': ^0.7.1
+
+catalogs:
+  node:
+    '@types/node': ^22.13.5
+  react19:
+    react: 19.1.0
+    react-dom: 19.1.0
+    '@types/react': ^19.1.0
+    '@types/react-dom': ^19.1.1
+  tanstack:
+    '@tanstack/react-query': ^5.74.7
+    '@tanstack/react-query-devtools': ^5.74.7
+    '@tanstack/react-router': ^1.109.2
+    '@tanstack/react-router-devtools': ^1.114.27
+    '@tanstack/react-router-with-query': ^1.109.2
+    '@tanstack/react-start': ^1.114.27
+    '@tanstack/router-plugin': ^1.114.27
+  trpc:
+    '@trpc/client': npm:@trpc/client
+    '@trpc/server': npm:@trpc/server
+    '@trpc/tanstack-react-query': npm:@trpc/tanstack-react-query
