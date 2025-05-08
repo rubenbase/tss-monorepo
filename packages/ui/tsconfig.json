@@ -102,8 +102,7 @@
 
     "baseUrl": ".",
     "paths": {
-      "@acme/ui": ["src"],
-      "@/*": ["src/*"]
+      "@acme/ui": ["src"]
     }
   }
 }
