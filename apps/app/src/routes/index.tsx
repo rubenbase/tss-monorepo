@@ -1,5 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { Alert, AlertDescription, AlertTitle } from '@acme/ui/alert';
+import { Button } from '@acme/ui/button';
 import { cn } from '@acme/ui';
 
 export const Route = createFileRoute('/')({
@@ -14,6 +15,8 @@ function Home() {
         <AlertTitle>Alert Title</AlertTitle>
         <AlertDescription>Alert Description</AlertDescription>
       </Alert>
+
+      <Button>Click me</Button>
     </div>
   );
 }

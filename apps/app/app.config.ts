@@ -27,7 +27,6 @@ export default defineConfig({
     ],
     resolve: {
       alias: [
-        // TODO: This should be done automatically
         {
           find: '@acme/ui',
           replacement: path.resolve(__dirname, '../../packages/ui/src'),

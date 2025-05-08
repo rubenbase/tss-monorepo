@@ -1,14 +1,12 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
 
-const DATABASE = {
-  DATABASE_URL: z.string().min(1),
-} as const;
-
-export const env = createEnv({
+export const authEnvs = createEnv({
   server: {
-    NODE_ENV: z.enum(['development', 'production']).optional(),
-    ...DATABASE,
+    BETTER_AUTH_SECRET: z.string(),
+    /* Google */
+    GOOGLE_CLIENT_ID: z.string(),
+    GOOGLE_CLIENT_SECRET: z.string(),
   },
   clientPrefix: 'VITE_',
   client: {},
