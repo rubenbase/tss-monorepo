@@ -3,10 +3,15 @@ import { getRouterManifest } from '@tanstack/react-start/router-manifest';
 import {
   createStartHandler,
   defaultStreamHandler,
+  getWebRequest,
 } from '@tanstack/react-start/server';
 import { createRouter } from './router';
 
 export default createStartHandler({
-  createRouter,
+  createRouter: () => {
+    const request = getWebRequest()!;
+    const headers = new Headers(request.headers);
+    return createRouter(Object.fromEntries(headers));
+  },
   getRouterManifest,
 })(defaultStreamHandler);
