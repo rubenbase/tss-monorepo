@@ -1,37 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "gobrand",
+  "name": "proud-haze-1bcf",
   "main": ".output/server/index.mjs",
   "compatibility_date": "2025-04-01",
   "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": ".output/public",
+    "binding": "ASSETS",
   },
   "observability": {
     "enabled": true,
   },
-  "kv_namespaces": [
-    {
-      "binding": "CACHE",
-      "id": "625a4a72dd4f4a5a98656e234ee24175",
-    },
-  ],
-  "r2_buckets": [
-    {
-      "binding": "ASSETS_PRIVATE",
-      "bucket_name": "gobrand-production-private",
-      "preview_bucket_name": "gobrand-preview-private",
-    },
-    {
-      "binding": "ASSETS_PUBLIC",
-      "bucket_name": "gobrand-production-public",
-      "preview_bucket_name": "gobrand-preview-public",
-    },
-  ],
-  "routes": [
-    {
-      "custom_domain": true,
-      "pattern": "hub.gobrand.app",
-    },
-  ],
 }

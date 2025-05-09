@@ -28,9 +28,8 @@ export const postRouter = {
   byId: publicProcedure
     .input(z.object({ id: z.string() }))
     .query(async ({ input }) => {
-      console.log('>>> input', input);
       const post = posts.find((p) => p.id === input.id);
-      console.log('>>> post', post);
+
       if (!post) {
         throw new TRPCError({ code: 'NOT_FOUND' });
       }

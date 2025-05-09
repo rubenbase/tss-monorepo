@@ -1,4 +1,5 @@
 /// <reference types="vinxi/types/server" />
+
 import { getRouterManifest } from '@tanstack/react-start/router-manifest';
 import {
   createStartHandler,
@@ -11,7 +12,7 @@ export default createStartHandler({
   createRouter: () => {
     const request = getWebRequest()!;
     const headers = new Headers(request.headers);
-    return createRouter(Object.fromEntries(headers));
+    return createRouter(headers);
   },
   getRouterManifest,
 })(defaultStreamHandler);

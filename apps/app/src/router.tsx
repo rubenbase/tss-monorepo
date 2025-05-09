@@ -7,8 +7,8 @@ import superjson from 'superjson';
 import { DefaultCatchBoundary } from './components/DefaultCatchBoundary';
 import { NotFound } from './components/NotFound';
 import { routeTree } from './routeTree.gen';
-import type { AppRouter } from '@acme/api';
 import { TRPCProvider } from './trpc/react';
+import { AppRouter } from '@acme/api';
 import { sharedEnvs } from '@acme/env/shared';
 import { createIsomorphicFn } from '@tanstack/react-start';
 
@@ -24,7 +24,7 @@ function getUrl() {
   return base + '/api/trpc';
 }
 
-export function createRouter(ssrHeaders: Record<string, string>) {
+export function createRouter(ssrHeaders: Headers | undefined) {
   const headers = createIsomorphicFn()
     .client(() => ({}))
     .server(() => ssrHeaders);
@@ -41,7 +41,7 @@ export function createRouter(ssrHeaders: Record<string, string>) {
       httpBatchStreamLink({
         transformer: superjson,
         url: getUrl(),
-        headers,
+        headers: headers(),
       }),
     ],
   });

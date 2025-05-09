@@ -1,15 +1,24 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute, ErrorComponent, Link } from '@tanstack/react-router';
+import {
+  createFileRoute,
+  ErrorComponent,
+  Link,
+  notFound,
+} from '@tanstack/react-router';
 import { NotFound } from '../components/NotFound';
 import { useTRPC } from '../trpc/react';
 
 export const Route = createFileRoute('/posts/$postId')({
-  loader: async ({ params: { postId }, context }) => {
-    const data = await context.queryClient.ensureQueryData(
+  loader: async ({ context, params: { postId } }) => {
+    const post = await context.queryClient.ensureQueryData(
       context.trpc.post.byId.queryOptions({ id: postId })
     );
 
-    return { title: data.title };
+    if (!post) {
+      throw notFound();
+    }
+
+    return { title: post.title };
   },
   head: ({ loaderData }) => ({
     meta: [{ title: loaderData.title }],
